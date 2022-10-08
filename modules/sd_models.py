@@ -122,12 +122,10 @@ def load_model_weights(model, checkpoint_file, sd_model_hash):
     pl_sd = torch.load(checkpoint_file, map_location="cpu")
     if "global_step" in pl_sd:
         print(f"Global Step: {pl_sd['global_step']}")
-#         print(f"Global Step: {pl_sd}")#改错位置了，是127行
     
     if "state_dict" in pl_sd:
-#         sd = pl_sd["state_dict"]
-        sd = pl_sd
-#修改处，latest用
+        sd = pl_sd["state_dict"]
+        #latest用不了，不改了
     else:
         sd = pl_sd
 
