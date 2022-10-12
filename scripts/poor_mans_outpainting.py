@@ -12,7 +12,7 @@ from modules.shared import opts, cmd_opts, state
 
 class Script(scripts.Script):
     def title(self):
-        return "Poor man's outpainting"
+        return "低质量补全画布/Poor man's outpainting"
 
     def show(self, is_img2img):
         return is_img2img
@@ -21,10 +21,10 @@ class Script(scripts.Script):
         if not is_img2img:
             return None
 
-        pixels = gr.Slider(label="Pixels to expand", minimum=8, maximum=256, step=8, value=128)
-        mask_blur = gr.Slider(label='Mask blur', minimum=0, maximum=64, step=1, value=4, visible=False)
-        inpainting_fill = gr.Radio(label='Masked content', choices=['fill', 'original', 'latent noise', 'latent nothing'], value='fill', type="index", visible=False)
-        direction = gr.CheckboxGroup(label="Outpainting direction", choices=['left', 'right', 'up', 'down'], value=['left', 'right', 'up', 'down'])
+        pixels = gr.Slider(label="像素拓展/Pixels to expand", minimum=8, maximum=256, step=8, value=128)
+        mask_blur = gr.Slider(label='蒙版模糊程度/Mask blur', minimum=0, maximum=64, step=1, value=4, visible=False)
+        inpainting_fill = gr.Radio(label='蒙版内容/Masked content', choices=['填充/fill', '原始图像/original', '潜在噪声/latent noise', '无潜在噪声/latent nothing'], value='填充/fill', type="index", visible=False)
+        direction = gr.CheckboxGroup(label="补全画布的方向/Outpainting direction", choices=['左/left', '右/right', '上/up', '下/down'], value=['left', 'right', 'up', 'down'])
 
         return [pixels, mask_blur, inpainting_fill, direction]
 
@@ -105,7 +105,7 @@ class Script(scripts.Script):
                 work_latent_mask.append(tiledata_latent_mask[2])
 
         batch_count = len(work)
-        print(f"Poor man's outpainting will process a total of {len(work)} images tiled as {len(grid.tiles[0][2])}x{len(grid.tiles)}.")
+        print(f"低质量补全画布将处理{len(work)}图像平铺为{len(grid.tiles[0][2])}x{len(grid.tiles)}/Poor man's outpainting will process a total of {len(work)} images tiled as {len(grid.tiles[0][2])}x{len(grid.tiles)}.")
 
         state.job_count = batch_count
 

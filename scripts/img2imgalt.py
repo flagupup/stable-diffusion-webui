@@ -114,18 +114,18 @@ class Script(scripts.Script):
         self.cache = None
 
     def title(self):
-        return "img2img alternative test"
+        return "改图测试/img2img alternative test"
 
     def show(self, is_img2img):
         return is_img2img
 
     def ui(self, is_img2img):
-        original_prompt = gr.Textbox(label="Original prompt", lines=1)
-        original_negative_prompt = gr.Textbox(label="Original negative prompt", lines=1)
-        cfg = gr.Slider(label="Decode CFG scale", minimum=0.0, maximum=15.0, step=0.1, value=1.0)
-        st = gr.Slider(label="Decode steps", minimum=1, maximum=150, step=1, value=50)
-        randomness = gr.Slider(label="Randomness", minimum=0.0, maximum=1.0, step=0.01, value=0.0)
-        sigma_adjustment = gr.Checkbox(label="Sigma adjustment for finding noise for image", value=False)
+        original_prompt = gr.Textbox(label="关键词语句原文/Original prompt", lines=1)
+        original_negative_prompt = gr.Textbox(label="否定关键词语句原文/Original negative prompt", lines=1)
+        cfg = gr.Slider(label="CFG解码指数/Decode CFG scale", minimum=0.0, maximum=15.0, step=0.1, value=1.0)
+        st = gr.Slider(label="解码步数/Decode steps", minimum=1, maximum=150, step=1, value=50)
+        randomness = gr.Slider(label="随机性/Randomness", minimum=0.0, maximum=1.0, step=0.01, value=0.0)
+        sigma_adjustment = gr.Checkbox(label="Sigma调整图像噪点/Sigma adjustment for finding noise for image", value=False)
         return [original_prompt, original_negative_prompt, cfg, st, randomness, sigma_adjustment]
 
     def run(self, p, original_prompt, original_negative_prompt, cfg, st, randomness, sigma_adjustment):

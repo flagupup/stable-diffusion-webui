@@ -120,7 +120,7 @@ def get_matched_noise(_np_src_image, np_mask_rgb, noise_q=1, color_variation=0.0
 
 class Script(scripts.Script):
     def title(self):
-        return "Outpainting mk2"
+        return "MK2模式补全画布/Outpainting mk2"
 
     def show(self, is_img2img):
         return is_img2img
@@ -129,13 +129,13 @@ class Script(scripts.Script):
         if not is_img2img:
             return None
 
-        info = gr.HTML("<p style=\"margin-bottom:0.75em\">Recommended settings: Sampling Steps: 80-100, Sampler: Euler a, Denoising strength: 0.8</p>")
+        info = gr.HTML("<p style=\"margin-bottom:0.75em\">推荐设置:采样步数:80-100,采样器:Euler a,去噪强度:0.8/Recommended settings: Sampling Steps: 80-100, Sampler: Euler a, Denoising strength: 0.8</p>")
 
-        pixels = gr.Slider(label="Pixels to expand", minimum=8, maximum=256, step=8, value=128)
-        mask_blur = gr.Slider(label='Mask blur', minimum=0, maximum=64, step=1, value=8, visible=False)
-        direction = gr.CheckboxGroup(label="Outpainting direction", choices=['left', 'right', 'up', 'down'], value=['left', 'right', 'up', 'down'])
-        noise_q = gr.Slider(label="Fall-off exponent (lower=higher detail)", minimum=0.0, maximum=4.0, step=0.01, value=1.0)
-        color_variation = gr.Slider(label="Color variation", minimum=0.0, maximum=1.0, step=0.01, value=0.05)
+        pixels = gr.Slider(label="往外扩充的像素/Pixels to expand", minimum=8, maximum=256, step=8, value=128)
+        mask_blur = gr.Slider(label='蒙版模糊程度/Mask blur', minimum=0, maximum=64, step=1, value=8, visible=False)
+        direction = gr.CheckboxGroup(label="补全画布的方向/Outpainting direction", choices=['左/left', '右/right', '上/up', '下/down'], value=['left', 'right', 'up', 'down'])
+        noise_q = gr.Slider(label="衰减指数(数值低=更多细节)/Fall-off exponent (lower=higher detail)", minimum=0.0, maximum=4.0, step=0.01, value=1.0)
+        color_variation = gr.Slider(label="颜色变化值/Color variation", minimum=0.0, maximum=1.0, step=0.01, value=0.05)
 
         return [info, pixels, mask_blur, direction, noise_q, color_variation]
 

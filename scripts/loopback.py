@@ -11,14 +11,14 @@ from modules.shared import opts, cmd_opts, state
 
 class Script(scripts.Script):
     def title(self):
-        return "Loopback"
+        return "图像迭代/Loopback"
 
     def show(self, is_img2img):
         return is_img2img
 
     def ui(self, is_img2img):
-        loops = gr.Slider(minimum=1, maximum=32, step=1, label='Loops', value=4)
-        denoising_strength_change_factor = gr.Slider(minimum=0.9, maximum=1.1, step=0.01, label='Denoising strength change factor', value=1)
+        loops = gr.Slider(minimum=1, maximum=32, step=1, label='图像迭代次数/Loops', value=4)
+        denoising_strength_change_factor = gr.Slider(minimum=0.9, maximum=1.1, step=0.01, label='去噪强度变化系数/Denoising strength change factor', value=1)
 
         return [loops, denoising_strength_change_factor]
 
@@ -26,7 +26,7 @@ class Script(scripts.Script):
         processing.fix_seed(p)
         batch_count = p.n_iter
         p.extra_generation_params = {
-            "Denoising strength change factor": denoising_strength_change_factor,
+            "去噪强度变化系数/Denoising strength change factor": denoising_strength_change_factor,
         }
 
         p.batch_size = 1

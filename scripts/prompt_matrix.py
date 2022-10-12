@@ -42,10 +42,10 @@ def draw_xy_grid(xs, ys, x_label, y_label, cell):
 
 class Script(scripts.Script):
     def title(self):
-        return "Prompt matrix"
+        return "关键词语句矩阵/Prompt matrix"
 
     def ui(self, is_img2img):
-        put_at_start = gr.Checkbox(label='Put variable parts at start of prompt', value=False)
+        put_at_start = gr.Checkbox(label='把变量部分放在关键词语句开头处/Put variable parts at start of prompt', value=False)
 
         return [put_at_start]
 
@@ -70,7 +70,7 @@ class Script(scripts.Script):
         p.n_iter = math.ceil(len(all_prompts) / p.batch_size)
         p.do_not_save_grid = True
 
-        print(f"Prompt matrix will create {len(all_prompts)} images using a total of {p.n_iter} batches.")
+        print(f"关键词语句矩阵将创建{len(all_prompts)}图像,总共使用{p.n_iter}批次/Prompt matrix will create {len(all_prompts)} images using a total of {p.n_iter} batches.")
 
         p.prompt = all_prompts
         p.seed = [p.seed for _ in all_prompts]

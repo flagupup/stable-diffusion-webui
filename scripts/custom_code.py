@@ -14,7 +14,7 @@ class Script(scripts.Script):
         return cmd_opts.allow_code
 
     def ui(self, is_img2img):
-        code = gr.Textbox(label="Python code", visible=False, lines=1)
+        code = gr.Textbox(label="Python代码/Python code", visible=False, lines=1)
 
         return [code]
 

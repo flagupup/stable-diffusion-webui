@@ -11,15 +11,15 @@ from modules.shared import opts, cmd_opts, state
 
 class Script(scripts.Script):
     def title(self):
-        return "SD upscale"
+        return "SD模式放大/SD upscale"
 
     def show(self, is_img2img):
         return is_img2img
 
     def ui(self, is_img2img):
-        info = gr.HTML("<p style=\"margin-bottom:0.75em\">Will upscale the image to twice the dimensions; use width and height sliders to set tile size</p>")
-        overlap = gr.Slider(minimum=0, maximum=256, step=16, label='Tile overlap', value=64, visible=False)
-        upscaler_index = gr.Radio(label='Upscaler', choices=[x.name for x in shared.sd_upscalers], value=shared.sd_upscalers[0].name, type="index", visible=False)
+        info = gr.HTML("<p style=\"margin-bottom:0.75em\">将图像尺寸提升2倍;使用宽度/width和高度/height滑块设置图块大小/Will upscale the image to twice the dimensions; use width and height sliders to set tile size</p>")
+        overlap = gr.Slider(minimum=0, maximum=256, step=16, label='贴图重叠范围/Tile overlap', value=64, visible=False)
+        upscaler_index = gr.Radio(label='图像放大器/Upscaler', choices=[x.name for x in shared.sd_upscalers], value=shared.sd_upscalers[0].name, type="index", visible=False)
 
         return [info, overlap, upscaler_index]
 

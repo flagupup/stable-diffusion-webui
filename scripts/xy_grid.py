@@ -117,23 +117,23 @@ AxisOptionImg2Img = namedtuple("AxisOptionImg2Img", ["label", "type", "apply", "
 
 
 axis_options = [
-    AxisOption("Nothing", str, do_nothing, format_nothing),
-    AxisOption("Seed", int, apply_field("seed"), format_value_add_label),
-    AxisOption("Var. seed", int, apply_field("subseed"), format_value_add_label),
-    AxisOption("Var. strength", float, apply_field("subseed_strength"), format_value_add_label),
-    AxisOption("Steps", int, apply_field("steps"), format_value_add_label),
-    AxisOption("CFG Scale", float, apply_field("cfg_scale"), format_value_add_label),
-    AxisOption("Prompt S/R", str, apply_prompt, format_value),
-    AxisOption("Prompt order", str_permutations, apply_order, format_value_join_list),
-    AxisOption("Sampler", str, apply_sampler, format_value),
-    AxisOption("Checkpoint name", str, apply_checkpoint, format_value),
-    AxisOption("Hypernetwork", str, apply_hypernetwork, format_value),
-    AxisOption("Sigma Churn", float, apply_field("s_churn"), format_value_add_label),
-    AxisOption("Sigma min", float, apply_field("s_tmin"), format_value_add_label),
-    AxisOption("Sigma max", float, apply_field("s_tmax"), format_value_add_label),
-    AxisOption("Sigma noise", float, apply_field("s_noise"), format_value_add_label),
-    AxisOption("Eta", float, apply_field("eta"), format_value_add_label),
-    AxisOptionImg2Img("Denoising", float, apply_field("denoising_strength"), format_value_add_label),  # as it is now all AxisOptionImg2Img items must go after AxisOption ones
+    AxisOption("无/Nothing", str, do_nothing, format_nothing),
+    AxisOption("图像生成种子/Seed", int, apply_field("seed"), format_value_add_label),
+    AxisOption("图像生成种子临时变量/Var. seed", int, apply_field("subseed"), format_value_add_label),
+    AxisOption("强度临时变量/Var. strength", float, apply_field("subseed_strength"), format_value_add_label),
+    AxisOption("步数/Steps", int, apply_field("steps"), format_value_add_label),
+    AxisOption("CFG指数/CFG Scale", float, apply_field("cfg_scale"), format_value_add_label),
+    AxisOption("关键词S/R/Prompt S/R", str, apply_prompt, format_value),
+    AxisOption("关键词列表/Prompt order", str_permutations, apply_order, format_value_join_list),
+    AxisOption("采样器/Sampler", str, apply_sampler, format_value),
+    AxisOption("模型名称/Checkpoint name", str, apply_checkpoint, format_value),
+        AxisOption("超网络/Hypernetwork", str, apply_hypernetwork, format_value),
+    AxisOption("Sigma混合/Sigma Churn", float, apply_field("s_churn"),  format_value_add_label),
+    AxisOption("Sigma最小/Sigma min",   float, apply_field("s_tmin"),   format_value_add_label),
+    AxisOption("Sigma最大/Sigma max",   float, apply_field("s_tmax"),   format_value_add_label),
+    AxisOption("Sigma噪点/Sigma noise", float, apply_field("s_noise"),  format_value_add_label),
+    AxisOption("DDIM Eta",    float, apply_field("ddim_eta"), format_value_add_label),
+    AxisOptionImg2Img("去噪/Denoising", float, apply_field("denoising_strength"), format_value_add_label),   # as as it is now all AxisOptionImg2Img items must go after AxisOption ones
 ]
 
 
@@ -177,22 +177,22 @@ re_range_count_float = re.compile(r"\s*([+-]?\s*\d+(?:.\d*)?)\s*-\s*([+-]?\s*\d+
 
 class Script(scripts.Script):
     def title(self):
-        return "X/Y plot"
+        return "X/Y图/X/Y plot"
 
     def ui(self, is_img2img):
         current_axis_options = [x for x in axis_options if type(x) == AxisOption or type(x) == AxisOptionImg2Img and is_img2img]
 
         with gr.Row():
-            x_type = gr.Dropdown(label="X type", choices=[x.label for x in current_axis_options], value=current_axis_options[1].label, visible=False, type="index", elem_id="x_type")
-            x_values = gr.Textbox(label="X values", visible=False, lines=1)
+            x_type = gr.Dropdown(label="X类型/X type", choices=[x.label for x in current_axis_options], value=current_axis_options[1].label, visible=False, type="index", elem_id="x_type")
+            x_values = gr.Textbox(label="X值/X values", visible=False, lines=1)
 
         with gr.Row():
-            y_type = gr.Dropdown(label="Y type", choices=[x.label for x in current_axis_options], value=current_axis_options[4].label, visible=False, type="index", elem_id="y_type")
-            y_values = gr.Textbox(label="Y values", visible=False, lines=1)
+            y_type = gr.Dropdown(label="Y类型/Y type", choices=[x.label for x in current_axis_options], value=current_axis_options[4].label, visible=False, type="index", elem_id="y_type")
+            y_values = gr.Textbox(label="Y值/Y values", visible=False, lines=1)
         
-        draw_legend = gr.Checkbox(label='Draw legend', value=True)
-        no_fixed_seeds = gr.Checkbox(label='Keep -1 for seeds', value=False)
-
+        draw_legend = gr.Checkbox(label='绘制网格/Draw legend', value=True)
+        no_fixed_seeds = gr.Checkbox(label='保持图像生成种子值为-1/Keep -1 for seeds', value=False)
+            
         return [x_type, x_values, y_type, y_values, draw_legend, no_fixed_seeds]
 
     def run(self, p, x_type, x_values, y_type, y_values, draw_legend, no_fixed_seeds):

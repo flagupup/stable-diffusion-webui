@@ -106,7 +106,7 @@ class ScriptRunner:
 
         titles = [wrap_call(script.title, script.filename, "title") or f"{script.filename} [error]" for script in self.scripts]
 
-        dropdown = gr.Dropdown(label="Script", choices=["None"] + titles, value="None", type="index")
+        dropdown = gr.Dropdown(label="脚本/Script", choices=["None"] + titles, value="None", type="index")
         inputs = [dropdown]
 
         for script in self.scripts:
@@ -197,5 +197,5 @@ def reload_scripts(basedir):
     scripts_data.clear()
     load_scripts(basedir)
 
-    scripts_txt2img = ScriptRunner()
-    scripts_img2img = ScriptRunner()
+scripts_txt2img = ScriptRunner()
+scripts_img2img = ScriptRunner()

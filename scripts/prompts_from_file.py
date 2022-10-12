@@ -13,7 +13,7 @@ from modules.shared import opts, cmd_opts, state
 
 class Script(scripts.Script):
     def title(self):
-        return "Prompts from file or textbox"
+        return "载入来自输入框或者文件的关键词语句/Prompts from file or textbox"
 
     def ui(self, is_img2img):
         # This checkbox would look nicer as two tabs, but there are two problems:
@@ -23,9 +23,9 @@ class Script(scripts.Script):
         #    due to the way Script assumes all controls returned can be used as inputs.
         # Therefore, there's no good way to use grouping components right now,
         # so we will use a checkbox! :)
-        checkbox_txt = gr.Checkbox(label="Show Textbox", value=False)
-        file = gr.File(label="File with inputs", type='bytes')
-        prompt_txt = gr.TextArea(label="Prompts")
+        checkbox_txt = gr.Checkbox(label="显示文本框/Show Textbox", value=False)
+        file = gr.File(label="导入文件/File with inputs", type='bytes')
+        prompt_txt = gr.TextArea(label="关键词语句/Prompts")
         checkbox_txt.change(fn=lambda x: [gr.File.update(visible = not x), gr.TextArea.update(visible = x)], inputs=[checkbox_txt], outputs=[file, prompt_txt])
         return [checkbox_txt, file, prompt_txt]
 
